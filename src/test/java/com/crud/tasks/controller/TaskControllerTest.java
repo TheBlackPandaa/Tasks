@@ -7,7 +7,6 @@ import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,7 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringJUnitWebConfig
@@ -80,7 +78,7 @@ class TaskControllerTest {
     }
 
     @Test
-    void updateTask() throws Exception {
+    void shouldUpdateTask() throws Exception {
         //Given
         TaskDto updatedTaskDto = new TaskDto(1L, "updated1", "updated1");
         Task updatedTask = new Task(1L, "updated1", "updated1");
@@ -97,10 +95,11 @@ class TaskControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(jsonContent))
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)));
     }
 
     @Test
-    void createTask() {
+    void shouldCreateTask() {
     }
 }
